@@ -1,4 +1,4 @@
-import { sendResponse, sendResult } from '../api';
+import { getRequest, sendResponse, sendResult } from '../api';
 import { Request, Response, Result } from '../api/types/communication';
 import { FlowRequest } from '../api/types/request';
 import { FlowBuilder } from './builder';
@@ -27,6 +27,10 @@ export class Flow {
   private response?: PromiseOr<Response | undefined>;
 
   /* -= Methods =- */
+
+  public read(): Request {
+    return getRequest();
+  }
 
   public add(...results: Result[]): this {
     this.builder.add(...results);

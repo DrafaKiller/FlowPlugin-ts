@@ -1,8 +1,21 @@
 {
 	"name": "flow-plugin",
+	"description": "A package to help you create plugins for Flow Launcher",
+	"version": "0.0.1",
+	"author": "DrafaKiller",
+  "keywords": [ "Flow Launcher", "Plugin", "Helper" ],
+  "license": "MIT",
+	"repository": {
+			"type": "git",
+			"url": "https://github.com/DrafaKiller/FlowPlugin-ts.git"
+	},
+	"files": [
+		"build/**/*",
+		"README.md"
+	],
+	
 	"type": "commonjs",
 	"main": "build/index.js",
-	"version": "0.0.1",
 	"scripts": {
 		"start": "nodemon src/index.ts",
 		"build": "tsc",

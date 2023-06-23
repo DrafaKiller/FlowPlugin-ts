@@ -29,18 +29,13 @@ export namespace FlowRequest {
 
   export type Methods = ExtractName<All['method']>;
 
-  export type Get<Method extends Methods> = Extract<
-    All,
-    { method: `Flow.Launcher.${Method}` | Method }
-  >;
+  export type Get<Method extends Methods> = Extract<All, { method: `Flow.Launcher.${Method}` | Method }>;
 
   /* -= Utilities =- */
 
   export type MethodsOr<Name extends string> = Methods | (Name & {});
 
-  export type GetAny<Method extends string> = Method extends Methods
-    ? Get<Method>
-    : Request & { method: Method };
+  export type GetAny<Method extends string> = Method extends Methods ? Get<Method> : Request & { method: Method };
 
   type ExtractName<T extends string> = T extends `Flow.Launcher.${infer name}` ? name : T;
 
