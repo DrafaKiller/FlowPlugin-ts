@@ -1,4 +1,4 @@
-import { getRequest, sendResponse, sendResult } from '../api';
+import { getRequest, sendResponse } from '../api';
 import { Request, Response, Result } from '../api/types/communication';
 import { FlowRequest } from '../api/types/request';
 import { FlowBuilder } from './builder';
@@ -59,7 +59,15 @@ export class Flow {
   }
 }
 
+/* -= Exports =- */
+
+import { Request as eRequest, Response as eResponse, Result as eResult } from '../api/types/communication';
+
 export namespace Flow {
   export const builder = FlowBuilder;
   export const scope = FlowScope;
+
+  export interface Request extends eRequest {}
+  export interface Response extends eResponse {}
+  export interface Result extends eResult {}
 }
