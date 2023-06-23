@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "module": "NodeNext",
+    "target": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "removeComments": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./build"
+  },
+  "include": [ "src" ],
+  "exclude": [ "node_modules", "**/__tests__/*" ]
+}
