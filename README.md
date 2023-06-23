@@ -22,13 +22,14 @@ Add Flow Launcher's results by using the `add` method, and listen for queries wi
 It provides an easy-to-use API to create your plugin, and it also provides a type definition file to help you develop your plugin.
 
 ```ts
-import Flow from "flow-plugin";
+import Flow from 'flow-plugin';
 
 const flow = new Flow();
 
 flow.add({
   title: 'Welcome to Flow!',
   subtitle: 'Create your own plugin with Typescript!',
+  icoPath: 'app.png',
 });
 
 flow.on('query', (request, response) => {
@@ -37,6 +38,7 @@ flow.on('query', (request, response) => {
   response.add({
     title: 'Hello World!',
     subtitle: `You searched for "${query}"`,
+    icoPath: 'app.png',
   });
 });
 ```
