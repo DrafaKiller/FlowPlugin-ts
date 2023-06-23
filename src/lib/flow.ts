@@ -1,6 +1,6 @@
 import { getRequest, sendResponse } from '../api';
 import { Request, Response, Result } from '../api/types/communication';
-import { FlowRequest } from '../api/types/request';
+import { Launcher } from '../api/types/request';
 import { FlowBuilder } from './builder';
 import { FlowHandler, FlowScope } from './scope';
 import { PromiseOr, awaitOr } from './utils/async';
@@ -42,7 +42,10 @@ export class Flow {
     return this;
   }
 
-  public on<T extends FlowRequest.MethodsOr<string>>(method: T, handler: FlowHandler<FlowRequest.GetAny<T>>): this {
+  public on<T extends Flow.Launcher.Requests['method'] | (string & {})>(
+    method: T,
+    handler: FlowHandler<Flow.Launcher.Requests & { method: T } & Request>
+  ): this {
     this.scope.on(method, handler);
     return this;
   }
@@ -61,13 +64,44 @@ export class Flow {
 
 /* -= Exports =- */
 
-import { Request as eRequest, Response as eResponse, Result as eResult } from '../api/types/communication';
+import * as eCommunication from '../api/types/communication';
+import * as eLauncher from '../api/types/request';
+import { Or, Weak } from './utils/types';
 
 export namespace Flow {
   export const builder = FlowBuilder;
   export const scope = FlowScope;
 
-  export interface Request extends eRequest {}
-  export interface Response extends eResponse {}
-  export interface Result extends eResult {}
+  export type Request = eCommunication.Request;
+  export type Response = eCommunication.Response;
+  export type Result = eCommunication.Result;
+  export type Action = eCommunication.Action;
+
+  export namespace Launcher {
+    export type Requests = eLauncher.Requests;
+    export type Actions = eLauncher.Actions;
+
+    export type Query = eLauncher.Query;
+    export type ChangeQuery = eLauncher.ChangeQuery;
+    export type CheckForNewUpdate = eLauncher.CheckForNewUpdate;
+    export type CloseApp = eLauncher.CloseApp;
+    export type CopyToClipboard = eLauncher.CopyToClipboard;
+    export type HideApp = eLauncher.HideApp;
+    export type OpenAppUri = eLauncher.OpenAppUri;
+    export type OpenDirectory = eLauncher.OpenDirectory;
+    export type OpenSettingDialog = eLauncher.OpenSettingDialog;
+    export type OpenUrl = eLauncher.OpenUrl;
+    export type ReloadAllPluginData = eLauncher.ReloadAllPluginData;
+    export type RestartApp = eLauncher.RestartApp;
+    export type SaveAppAllSettings = eLauncher.SaveAppAllSettings;
+    export type SavePluginSettings = eLauncher.SavePluginSettings;
+    export type ShellRun = eLauncher.ShellRun;
+    export type ShowApp = eLauncher.ShowApp;
+    export type ShowLoadingBar = eLauncher.ShowLoadingBar;
+    export type ShowMainWindow = eLauncher.ShowMainWindow;
+    export type ShowMsg = eLauncher.ShowMsg;
+    export type ShowMsgError = eLauncher.ShowMsgError;
+    export type StartLoadingBar = eLauncher.StartLoadingBar;
+    export type StopLoadingBar = eLauncher.StopLoadingBar;
+  }
 }

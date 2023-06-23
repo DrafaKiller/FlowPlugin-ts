@@ -4,120 +4,143 @@
   Defined: https://github.com/Flow-Launcher/Flow.Launcher/blob/v1.15.0/Flow.Launcher.Plugin/Interfaces/IPublicAPI.cs
 */
 
-import { Request } from './communication';
+import { Action, Request } from './communication';
 
-export type FlowRequest<Method extends FlowRequest.Methods = any> = FlowRequest.Get<Method>;
+export type Requests = Query;
 
-export namespace FlowRequest {
-  export type All =
-    | Query
-    | ChangeQuery
-    | RestartApp
-    | SaveAppAllSettings
-    | CheckForNewUpdate
-    | ShellRun
-    | CloseApp
-    | HideApp
-    | ShowApp
-    | ShowMsg
-    | GetTranslation
-    | OpenSettingDialog
-    | GetAllPlugins
-    | StartLoadingBar
-    | StopLoadingBar
-    | ReloadAllPluginData;
+export type Actions =
+  | ChangeQuery
+  | CheckForNewUpdate
+  | CloseApp
+  | CopyToClipboard
+  | HideApp
+  | OpenAppUri
+  | OpenDirectory
+  | OpenSettingDialog
+  | OpenUrl
+  | ReloadAllPluginData
+  | RestartApp
+  | SaveAppAllSettings
+  | SavePluginSettings
+  | ShellRun
+  | ShowApp
+  | ShowLoadingBar
+  | ShowMainWindow
+  | ShowMsg
+  | ShowMsgError
+  | StartLoadingBar
+  | StopLoadingBar;
 
-  export type Methods = ExtractName<All['method']>;
+/* -= Requests =- */
 
-  export type Get<Method extends Methods> = Extract<All, { method: `Flow.Launcher.${Method}` | Method }>;
+export interface Query extends Request {
+  method: 'query';
+  parameters: [string];
+}
 
-  /* -= Utilities =- */
+/* -= Actions =- */
 
-  export type MethodsOr<Name extends string> = Methods | (Name & {});
+export interface ChangeQuery extends Action {
+  method: 'Flow.Launcher.ChangeQuery';
+  parameters: [string, boolean?];
+}
 
-  export type GetAny<Method extends string> = Method extends Methods ? Get<Method> : Request & { method: Method };
+export interface CheckForNewUpdate extends Action {
+  method: 'Flow.Launcher.CheckForNewUpdate';
+  parameters: [];
+}
 
-  type ExtractName<T extends string> = T extends `Flow.Launcher.${infer name}` ? name : T;
+export interface CloseApp extends Action {
+  method: 'Flow.Launcher.CloseApp';
+  parameters: [];
+}
 
-  /* -= Basic Methods =- */
+export interface CopyToClipboard extends Action {
+  method: 'Flow.Launcher.CopyToClipboard';
+  parameters: [string];
+}
 
-  export interface Query extends Request {
-    method: 'query';
-    parameters: [string];
-  }
+export interface HideApp extends Action {
+  method: 'Flow.Launcher.HideApp';
+  parameters: [];
+}
 
-  export interface ChangeQuery extends Request {
-    method: 'Flow.Launcher.ChangeQuery';
-    parameters: [string, boolean?];
-  }
+export interface OpenAppUri extends Action {
+  method: 'Flow.Launcher.OpenAppUri';
+  parameters: [string];
+}
 
-  export interface RestartApp extends Request {
-    method: 'Flow.Launcher.RestartApp';
-    parameters: [string, boolean?, boolean?];
-  }
+export interface OpenDirectory extends Action {
+  method: 'Flow.Launcher.OpenDirectory';
+  parameters: [string, string?];
+}
 
-  export interface SaveAppAllSettings extends Request {
-    method: 'Flow.Launcher.SaveAppAllSettings';
-    parameters: [];
-  }
+export interface OpenSettingDialog extends Action {
+  method: 'Flow.Launcher.OpenSettingDialog';
+  parameters: [];
+}
 
-  export interface CheckForNewUpdate extends Request {
-    method: 'Flow.Launcher.CheckForNewUpdate';
-    parameters: [];
-  }
+export interface OpenUrl extends Action {
+  method: 'Flow.Launcher.OpenUrl';
+  parameters: [string, boolean?];
+}
 
-  export interface ShellRun extends Request {
-    method: 'Flow.Launcher.ShellRun';
-    parameters: [string, string?];
-  }
+export interface ReloadAllPluginData extends Action {
+  method: 'Flow.Launcher.ReloadAllPluginData';
+  parameters: [];
+}
 
-  export interface CloseApp extends Request {
-    method: 'Flow.Launcher.CloseApp';
-    parameters: [];
-  }
+export interface RestartApp extends Action {
+  method: 'Flow.Launcher.RestartApp';
+  parameters: [];
+}
 
-  export interface HideApp extends Request {
-    method: 'Flow.Launcher.HideApp';
-    parameters: [];
-  }
+export interface SaveAppAllSettings extends Action {
+  method: 'Flow.Launcher.SaveAppAllSettings';
+  parameters: [];
+}
 
-  export interface ShowApp extends Request {
-    method: 'Flow.Launcher.ShowApp';
-    parameters: [];
-  }
+export interface SavePluginSettings extends Action {
+  method: 'Flow.Launcher.SavePluginSettings';
+  parameters: [];
+}
 
-  export interface ShowMsg extends Request {
-    method: 'Flow.Launcher.ShowMsg';
-    parameters: [string, string?];
-  }
+export interface ShellRun extends Action {
+  method: 'Flow.Launcher.ShellRun';
+  parameters: [string, string?];
+}
 
-  export interface GetTranslation extends Request {
-    method: 'Flow.Launcher.GetTranslation';
-    parameters: [string];
-  }
+export interface ShowApp extends Action {
+  method: 'Flow.Launcher.ShowApp';
+  parameters: [];
+}
 
-  export interface OpenSettingDialog extends Request {
-    method: 'Flow.Launcher.OpenSettingDialog';
-    parameters: [];
-  }
+export interface ShowLoadingBar extends Action {
+  method: 'Flow.Launcher.ShowLoadingBar';
+  parameters: [];
+}
 
-  export interface GetAllPlugins extends Request {
-    method: 'Flow.Launcher.GetAllPlugins';
-    parameters: [];
-  }
+export interface ShowMainWindow extends Action {
+  method: 'Flow.Launcher.ShowMainWindow';
+  parameters: [];
+}
 
-  export interface StartLoadingBar extends Request {
-    method: 'Flow.Launcher.StartLoadingBar';
-    parameters: [];
-  }
+export interface ShowMsg extends Action {
+  method: 'Flow.Launcher.ShowMsg';
+  parameters: [string, string?, string?];
+}
 
-  export interface StopLoadingBar extends Request {
-    method: 'Flow.Launcher.StopLoadingBar';
-    parameters: [];
-  }
+export interface ShowMsgError extends Action {
+  method: 'Flow.Launcher.ShowMsgError';
+  parameters: [string, string?];
+}
 
-  export interface ReloadAllPluginData extends Request {
-    method: 'Flow.Launcher.ReloadAllPluginData';
-    parameters: [];
-  }
+export interface StartLoadingBar extends Action {
+  method: 'Flow.Launcher.StartLoadingBar';
+  parameters: [];
+}
+
+export interface StopLoadingBar extends Action {
+  method: 'Flow.Launcher.StopLoadingBar';
+  parameters: [];
 }
