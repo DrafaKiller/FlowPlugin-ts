@@ -7,6 +7,12 @@
 
 <p align="center">A package to help you create plugins for Flow Launcher with Typescript</p>
 
+## Getting Started
+
+**Flow Launcher** is a productivity tool for Windows that allows you to quickly launch applications, search files and folders, and perform web searches. With Flow Launcher, you can create your own plugins to extend its functionality and customize it to your needs.
+
+You can learn more about [Flow Launcher](https://www.flowlauncher.com/).
+
 ## Installation
 
 ```bash
@@ -42,6 +48,10 @@ flow.on('query', (request, response) => {
   });
 });
 ```
+
+This is the result of the example above:
+
+![Usage Result](https://raw.githubusercontent.com/DrafaKiller/FlowPlugin-ts/main/assets/welcome.png)
 
 ## Contributing
 
