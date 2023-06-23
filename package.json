@@ -1,10 +1,12 @@
 {
-	"name": "project-name",
+	"name": "flow-plugin",
 	"type": "commonjs",
 	"main": "build/index.js",
+	"version": "0.0.1",
 	"scripts": {
 		"start": "nodemon src/index.ts",
 		"build": "tsc",
+		"watch": "tsc --watch",
 		"dev": "tsc --watch | nodemon",
 		"lint": "eslint src/**/*.ts",
 		"format": "eslint src/**/*.ts --fix"
@@ -12,7 +14,7 @@
 	"devDependencies": {
 		"@types/node": "^20.3.1",
 		"eslint": "^8.43.0",
-		"nodemon": "^2.0.22",
+		"nodemon": "^1.14.9",
 		"ts-node": "^10.9.1",
 		"typescript": "^5.1.3"
 	}
