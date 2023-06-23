@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 0.0.3
+
+Fixed:
+- Npm vulnerability issues
+
 ## 0.0.2
 
 **Initial release:** FlowPlugin
