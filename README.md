@@ -28,23 +28,24 @@ Add Flow Launcher's results by using the `add` method, and listen for queries wi
 It provides an easy-to-use API to create your plugin, and it also provides a type definition file to help you develop your plugin.
 
 ```ts
-import Flow from 'flow-plugin';
+import { Flow } from 'flow-plugin';
 
-const flow = new Flow();
+const flow = new Flow({ keepOrder: true, icon: 'app.png' });
 
 flow.add({
-  title: 'Welcome to Flow!',
+  title: 'Welcome to Flow Launcher!',
   subtitle: 'Create your own plugin with Typescript!',
-  icoPath: 'app.png',
+  jsonRPCAction: {
+    method: 'Flow.Launcher.ChangeQuery',
+    parameters: ['- Hello World!', false],
+    dontHideAfterAction: true,
+  },
 });
 
-flow.on('query', (request, response) => {
-  const query = request.parameters[0];
-
+flow.on('query', ({ prompt }, response) => {
   response.add({
     title: 'Hello World!',
-    subtitle: `You searched for "${query}"`,
-    icoPath: 'app.png',
+    subtitle: `You searched for "${prompt}"`,
   });
 });
 ```
@@ -52,6 +53,56 @@ flow.on('query', (request, response) => {
 This is the result of the example above:
 
 ![Usage Result](https://raw.githubusercontent.com/DrafaKiller/FlowPlugin-ts/main/assets/welcome.png)
+
+## Type-safe API
+
+This package provides a type definition file to help you develop your plugin.
+
+If you want to make sure that your plugin is working properly, you can use the `Flow.Launcher.*` interface to check if your plugin is sending the correct actions.
+
+```ts
+flow.add({
+  title: 'Copy to clipboard',
+  jsonRPCAction: {
+    method: 'Flow.Launcher.CopyToClipboard',
+    parameters: ['Hello World!'],
+  } satisfies Flow.Launcher.CopyToClipboard,
+});
+```
+
+That way you will know exactly what parameters your plugin should send.
+
+Read more about what actions are available and their parameters in the [type definition](https://github.com/DrafaKiller/FlowPlugin-ts/blob/v1.0.0/src/api/types/standard.ts#L50-L177).
+
+## Definitions & Protocol
+
+- **Request** is a command sent by the launcher to the plugin.
+- **Action** is a command sent by the plugin to the launcher.
+- **Result** is a single item that can be displayed in the launcher.
+- **Response** is a collection of results that can be displayed in the launcher.
+
+When Query is changed:
+```
+Flow Launcher ---------- [Request] ----------> Plugin
+Flow Launcher <--------  [Response] ---------- Plugin
+```
+
+When clicking on an item with an Action, if the Action is not recognized:
+```
+Flow Launcher ---------- [Request] ----------> Plugin
+Flow Launcher <--------- [Action] ------------ Plugin
+```
+
+## Why use this package?
+
+The goal of this package is to provide a simple yet powerful and complete API to create plugins for Flow Launcher with Typescript.
+Ensuring that the type definitions are always up to date and that the API is always working properly.
+
+For the future, this package will also provide a widget-like API to create more complex but seamless plugins.
+
+If you are looking for different solutions, check the following packages:
+
+- [flow-launcher-helper](https://www.npmjs.com/package/flow-launcher-helper) - A simple library to help build plugins for Flow Launcher with Javascript or Typescript.
 
 ## Contributing
 

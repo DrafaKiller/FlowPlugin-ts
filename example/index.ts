@@ -1,10 +1,16 @@
-import { Flow } from '../src';
+import Flow from '../src';
 
 const flow = new Flow();
+
+type test = Flow.Launcher.Query;
 
 flow.add({
   title: '1 - Add results the smoothest way possible',
   subtitle: "It doens't matter where or when",
+});
+
+flow.on('query', (request, response) => {
+  request.method;
 });
 
 flow.on('query', async (request, response) => {

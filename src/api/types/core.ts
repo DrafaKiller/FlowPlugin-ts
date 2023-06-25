@@ -32,7 +32,7 @@ export interface Result {
   titleToolTip?: string;
   subtitleToolTip?: string;
 
-  jsonRPCAction?: Partial<Action>;
+  jsonRPCAction?: Action;
   settingsChange?: Record<string, unknown>;
 }
 
