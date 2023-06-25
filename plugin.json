@@ -1,0 +1,12 @@
+{
+  "ID": "3DD1DED5-8BCD-498F-81C1-19C3D0B56EC0",
+  "ActionKeyword": "-",
+  "Name": "Flow Plugin",
+  "Description": "",
+  "Author": "DrafaKiller",
+  "Version": "0.0.1",
+  "Language": "JavaScript",
+  "Website": "https://github.com/DrafaKiller/FlowPlugin-ts",
+  "ExecuteFileName": "build/index.js",
+  "IcoPath": "app.png"
+}

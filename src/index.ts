@@ -1,6 +1,3 @@
-import { Flow } from './lib/flow';
-import { FlowRequest } from './api/types/request';
-
-export { Flow };
-export { FlowRequest };
+import { Flow } from './components/flow';
+export { Flow } from './components/flow';
 export default Flow;
