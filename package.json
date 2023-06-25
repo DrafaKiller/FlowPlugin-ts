@@ -1,6 +1,6 @@
 {
 	"name": "flow-plugin",
-	"description": "A package to help you create plugins for Flow Launcher",
+	"description": "A package to help you create plugins for Flow Launcher with Typescript",
 	"version": "1.0.1",
 	"author": "DrafaKiller",
 	"keywords": [
@@ -18,17 +18,11 @@
 	"type": "commonjs",
 	"main": "build/index.js",
 	"scripts": {
-		"start": "nodemon src/index.ts",
 		"build": "tsc",
-		"watch": "tsc --watch",
-		"dev": "tsc --watch | nodemon",
-		"lint": "eslint src/**/*.ts",
-		"format": "eslint src/**/*.ts --fix"
+		"watch": "tsc --watch"
 	},
 	"devDependencies": {
 		"@types/node": "^20.3.1",
-		"eslint": "^8.43.0",
-		"nodemon": "^2.0.22",
 		"ts-node": "^10.9.1",
 		"typescript": "^5.1.3"
 	}

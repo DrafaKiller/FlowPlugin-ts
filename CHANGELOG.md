@@ -6,6 +6,9 @@ Changed:
 - Improved documentation
 - Improved examples
 
+Removed:
+- Development dependency `nodemon`, because it had vulnerability issues
+
 ## 1.0.0
 
 > ### **Breaking changes:**
