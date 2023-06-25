@@ -1,5 +1,14 @@
 # ChangeLog
 
+## 1.0.0
+
+> ### **Breaking changes:**
+> 
+> - Improved overall API structure and type definitions, it's more consistent and type-safe now.
+> - Seperated implementation into seperate components
+> 
+> Check the [API documentation](https://github.com/DrafaKiller/FlowPlugin-ts/blob/v1.0.0/README.md) for more information.
+
 ## 0.0.3
 
 Fixed:
