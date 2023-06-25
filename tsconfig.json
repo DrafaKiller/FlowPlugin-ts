@@ -1,19 +1,23 @@
 {
   "compilerOptions": {
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
+    "outDir": "build",
     "module": "NodeNext",
     "target": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
+    "lib": [ "ESNext", "DOM" ],
+    
     "strict": true,
     "declaration": true,
     "esModuleInterop": true,
     "removeComments": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "preserveConstEnums": true,
+    "strictNullChecks": true,
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./build"
   },
   "include": [ "src" ],
-  "exclude": [ "node_modules", "**/__tests__/*" ]
+  "exclude": [ "node_modules", "**/__tests__/*" ],
 }

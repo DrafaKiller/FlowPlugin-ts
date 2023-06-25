@@ -1,9 +1,7 @@
 import { Request, Action } from '../api';
-import { Actions, Query } from '../api/types/standard';
-import { FlowBuilder } from './builder';
-import { PromiseOr } from '../utils/types';
+import { Query } from '../api/types/standard';
 import { FlowResponseError } from '../error';
-import { AvailableResponse, AvailableResult } from '../api/types/extended';
+import { FlowBuilder } from './builder';
 
 export class FlowMethodHandler<T extends string = string> {
   constructor(public readonly method: T, private readonly callback: FlowMethodHandler.All<T>) {}
@@ -40,29 +38,33 @@ export class FlowMethodHandler<T extends string = string> {
   }
 
   private async executeAction(request: Request) {
-    function send(action: Action) {
-      if (sent) throw new FlowResponseError();
-      sent = action;
+    function reply(action: Action) {
+      if (replied !== undefined) throw new FlowResponseError();
+      replied = action;
     }
 
     const callback = this.callback as FlowMethodHandler.Action;
-    var sent: Action | undefined;
+    var replied: Action | undefined;
 
-    const result = await callback(request, { send: send });
-    if (result) send(result);
-    return sent;
+    const result = await callback(request, { reply: reply });
+    if (result) reply(result);
+    return replied;
   }
 }
 
 /* -= Type Definitions =- */
 
-import * as api from '../api';
+import { PromiseOr } from '../utils/types';
+import { Actions } from '../api/types/standard';
+import { AvailableResponse, AvailableResult } from '../api/types/extended';
+
+export type RequestQuery = Query & { prompt: string };
 
 export namespace FlowMethodHandler {
   export type All<T extends string = any> = T extends 'query' ? Response : Action;
 
   export type Response = (
-    request: Query & { prompt: string },
+    request: RequestQuery,
     response: {
       send: (...responses: AvailableResponse[]) => void;
       add: (...result: AvailableResult[]) => void;
@@ -72,7 +74,7 @@ export namespace FlowMethodHandler {
   export type Action = (
     request: Request,
     response: {
-      send: (action: Actions) => void;
+      reply: (action: Actions) => void;
     }
   ) => PromiseOr<void | Actions>;
 }

@@ -24,8 +24,8 @@ npm install flow-plugin
 - Easy to use
 - Type-safe API with type definitions
 - Append items to the final result
-- Reply to custom actions
-- Asynchronous actions
+- Reply to item clicks with custom actions
+- Asynchronous support
 
 ## Usage
 
@@ -122,7 +122,7 @@ If you want to make sure that your plugin is working properly, you can use the `
 Read more about what actions are available and their parameters in the [type definition](https://github.com/DrafaKiller/FlowPlugin-ts/blob/v1.0.0/src/api/types/standard.ts#L50-L177).
 
 
-### Custom Actions
+## Custom Actions
 
 Actions not recognized by the launcher will be sent back to the plugin as requests.
 
@@ -142,7 +142,7 @@ When clicking on an item, you can then listen for the action with the `on` metho
 flow.on('my_custom_action', ({ parameters: [ my_value ] }, response) => {
   if (typeof my_value !== 'string') return;
 
-  response.send({
+  response.reply({
     method: 'Flow.Launcher.CopyToClipboard',
     parameters: [my_value],
   });

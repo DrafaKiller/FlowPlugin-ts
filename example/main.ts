@@ -27,7 +27,7 @@ flow.on('query', ({ prompt }, response) => {
 flow.on('my_custom_action', ({ parameters: [prompt] }, response) => {
   if (typeof prompt !== 'string') return;
 
-  response.send({
+  response.reply({
     method: 'Flow.Launcher.ChangeQuery',
     parameters: [`Searching for "${prompt}"`, false],
   });

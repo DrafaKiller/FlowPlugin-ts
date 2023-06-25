@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 1.1.0
+
+Changed:
+- Custom action response is now done with `response.reply` instead of `response.send`
+
 ## 1.0.2
 
 Changed:

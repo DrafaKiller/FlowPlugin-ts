@@ -1,5 +1,4 @@
-import { sendResponse } from '../api';
-import { Response, Result } from '../api/types/core';
+import { sendResponse, Response } from '../api';
 import { AvailableResult } from '../api/types/extended';
 import { merge } from '../utils/string';
 

@@ -1,9 +1,9 @@
 import { Action, Request, Response, getRequest, sendAction, sendResponse } from '../api';
+import { AvailableRequest, AvailableResponse, AvailableResult } from '../api/types/extended';
+import { FlowResponseError } from '../error';
 import { FlowBuilder } from './builder';
 import { FlowScope } from './scope';
 import { FlowMethodHandler } from './handler';
-import { FlowResponseError } from '../error';
-import { AvailableRequest, AvailableResponse, AvailableResult } from '../api/types/extended';
 
 export interface FlowOptions {
   readonly autoRun?: boolean;
