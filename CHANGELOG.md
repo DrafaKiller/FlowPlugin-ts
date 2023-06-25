@@ -1,5 +1,11 @@
 # ChangeLog
 
+## 1.0.1
+
+Changed:
+- Improved documentation
+- Improved examples
+
 ## 1.0.0
 
 > ### **Breaking changes:**

@@ -52,6 +52,18 @@ export class Flow {
 
   /* -= Methods =- */
 
+  public run(request?: Request) {
+    if (this.response !== undefined) throw new FlowResponseError();
+    this.response = this.execute(request ?? this.read());
+
+    this.response.then((response) => {
+      if ('method' in response) sendAction(response);
+      else sendResponse(response);
+    });
+
+    return this.response;
+  }
+
   private async execute(request: Request) {
     const scopeResponse = await this.scope.run(request);
     const builder = new FlowBuilder(undefined, true);
@@ -72,24 +84,12 @@ export class Flow {
 
     return response;
   }
-
-  public run(request?: Request) {
-    if (this.response !== undefined) throw new FlowResponseError();
-    this.response = this.execute(request ?? this.read());
-
-    this.response.then((response) => {
-      if ('method' in response) sendAction(response);
-      else sendResponse(response);
-    });
-
-    return this.response;
-  }
 }
 
 /* -= Exports =- */
 
 import * as api from '../api';
-import * as request from '../api/types/standard';
+import * as standard from '../api/types/standard';
 
 export namespace Flow {
   export const Builder = FlowBuilder;
@@ -101,34 +101,34 @@ export namespace Flow {
   export type Action = api.Action;
 
   export namespace Launcher {
-    export type Requests = request.Requests;
-    export type Actions = request.Actions;
+    export type Requests = standard.Requests;
+    export type Actions = standard.Actions;
 
-    export type Query = request.Query;
-    export type ChangeQuery = request.ChangeQuery;
-    export type RestartApp = request.RestartApp;
-    export type ShellRun = request.ShellRun;
-    export type CopyToClipboard = request.CopyToClipboard;
-    export type SaveAppAllSettings = request.SaveAppAllSettings;
-    export type SavePluginSettings = request.SavePluginSettings;
-    export type ReloadAllPluginData = request.ReloadAllPluginData;
-    export type CheckForNewUpdate = request.CheckForNewUpdate;
-    export type ShowMsgError = request.ShowMsgError;
-    export type ShowMainWindow = request.ShowMainWindow;
-    export type ShowMsg = request.ShowMsg;
-    export type OpenSettingDialog = request.OpenSettingDialog;
-    export type HttpDownloadAsync = request.HttpDownloadAsync;
-    export type AddActionKeyword = request.AddActionKeyword;
-    export type RemoveActionKeyword = request.RemoveActionKeyword;
-    export type ActionKeywordAssigned = request.ActionKeywordAssigned;
-    export type LogDebug = request.LogDebug;
-    export type LogInfo = request.LogInfo;
-    export type LogWarn = request.LogWarn;
-    export type LogException = request.LogException;
-    export type LoadSettingJsonStorage = request.LoadSettingJsonStorage;
-    export type SaveSettingJsonStorage = request.SaveSettingJsonStorage;
-    export type OpenDirectory = request.OpenDirectory;
-    export type OpenUrl = request.OpenUrl;
-    export type OpenAppUri = request.OpenAppUri;
+    export type Query = standard.Query;
+    export type ChangeQuery = standard.ChangeQuery;
+    export type RestartApp = standard.RestartApp;
+    export type ShellRun = standard.ShellRun;
+    export type CopyToClipboard = standard.CopyToClipboard;
+    export type SaveAppAllSettings = standard.SaveAppAllSettings;
+    export type SavePluginSettings = standard.SavePluginSettings;
+    export type ReloadAllPluginData = standard.ReloadAllPluginData;
+    export type CheckForNewUpdate = standard.CheckForNewUpdate;
+    export type ShowMsgError = standard.ShowMsgError;
+    export type ShowMainWindow = standard.ShowMainWindow;
+    export type ShowMsg = standard.ShowMsg;
+    export type OpenSettingDialog = standard.OpenSettingDialog;
+    export type HttpDownloadAsync = standard.HttpDownloadAsync;
+    export type AddActionKeyword = standard.AddActionKeyword;
+    export type RemoveActionKeyword = standard.RemoveActionKeyword;
+    export type ActionKeywordAssigned = standard.ActionKeywordAssigned;
+    export type LogDebug = standard.LogDebug;
+    export type LogInfo = standard.LogInfo;
+    export type LogWarn = standard.LogWarn;
+    export type LogException = standard.LogException;
+    export type LoadSettingJsonStorage = standard.LoadSettingJsonStorage;
+    export type SaveSettingJsonStorage = standard.SaveSettingJsonStorage;
+    export type OpenDirectory = standard.OpenDirectory;
+    export type OpenUrl = standard.OpenUrl;
+    export type OpenAppUri = standard.OpenAppUri;
   }
 }

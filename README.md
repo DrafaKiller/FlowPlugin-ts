@@ -19,6 +19,14 @@ You can learn more about [Flow Launcher](https://www.flowlauncher.com/).
 npm install flow-plugin
 ```
 
+## Features
+
+- Easy to use
+- Type-safe API with type definitions
+- Append items to the final result
+- Reply to custom actions
+- Asynchronous actions
+
 ## Usage
 
 Here's a simple example of how to use this package, and just like that you can create your own plugin for Flow Launcher.
@@ -52,7 +60,9 @@ flow.on('query', ({ prompt }, response) => {
 
 This is the result of the example above:
 
-![Usage Result](https://raw.githubusercontent.com/DrafaKiller/FlowPlugin-ts/main/assets/welcome.png)
+![Usage Result](https://raw.githubusercontent.com/DrafaKiller/FlowPlugin-ts/v1.0.0/assets/welcome.png)
+
+<p align="center">Check for more <a href="https://github.com/DrafaKiller/FlowPlugin-ts/tree/v1.0.0/example">examples</a></p>
 
 ## Type-safe API
 
@@ -73,6 +83,37 @@ flow.add({
 That way you will know exactly what parameters your plugin should send.
 
 Read more about what actions are available and their parameters in the [type definition](https://github.com/DrafaKiller/FlowPlugin-ts/blob/v1.0.0/src/api/types/standard.ts#L50-L177).
+
+## Custom Actions
+
+Actions can be used to perform custom actions when clicking on an item, and support asynchronous operations.
+
+When adding an item, you can specify an action to be executed when the item is clicked, using the `jsonRPCAction` property.
+
+```ts
+flow.add({
+  title: 'Copy to clipboard',
+  jsonRPCAction: {
+    method: 'my_custom_action',
+    parameters: ['Hello World!'],
+  },
+});
+```
+
+When clicking on an item, you can then listen for the action in the `on` method and reply using a standard action.
+
+```ts
+flow.on('my_custom_action', ({ parameters: [ my_value ] }, response) => {
+  if (typeof my_value !== 'string') return;
+
+  response.send({
+    method: 'Flow.Launcher.CopyToClipboard',
+    parameters: [my_value],
+  });
+});
+```
+
+You can only reply <u>once</u>, to actions that are <u>recognized by the launcher</u>, otherwise the launcher will display an error message.
 
 ## Definitions & Protocol
 
