@@ -60,7 +60,9 @@ flow.on('query', ({ prompt }, response) => {
 
 This is the result of the example above:
 
-![Usage Result](https://raw.githubusercontent.com/DrafaKiller/FlowPlugin-ts/v1.0.0/assets/welcome.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/DrafaKiller/FlowPlugin-ts/v1.0.0/assets/welcome.png" alt="Usage Result">
+</p>
 
 <p align="center">Check for more <a href="https://github.com/DrafaKiller/FlowPlugin-ts/tree/v1.0.0/example">examples</a></p>
 
@@ -119,8 +121,8 @@ You can only reply <u>once</u>, to actions that are <u>recognized by the launche
 
 - **Request** is a command sent by the launcher to the plugin.
 - **Action** is a command sent by the plugin to the launcher.
-- **Result** is a single item that can be displayed in the launcher.
 - **Response** is a collection of results that can be displayed in the launcher.
+- **Result** is a single item that can be displayed in the launcher.
 
 When Query is changed:
 ```
