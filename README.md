@@ -69,8 +69,43 @@ This is the result of the example above:
 ## Type-safe API
 
 This package provides a type definition file to help you develop your plugin.
+That way you will know exactly what parameters your plugin should send.
 
-If you want to make sure that your plugin is working properly, you can use the `Flow.Launcher.*` interface to check if your plugin is sending the correct actions.
+```ts
+flow.add({
+  title: 'Item',
+  subtitle: 'This is a Flow Launcher item',
+  autoCompleteText: 'Hello World!',
+  icoPath: 'app.png',
+  score: 100,
+});
+```
+
+Read more about what parameters are available in the [type definition](https://github.com/DrafaKiller/FlowPlugin-ts/blob/v1.0.0/src/api/types/core.ts#L20-L37).
+
+## Request & Query
+
+You can listen for queries with the `on` method, receiving a `request` and a `response`.
+
+Reply to the query by using `response.add(...)` to add items to the final result, or `response.send(...)` to add a full response. These items will be appended to the final result, so you can add as many items as you want at any time.
+
+```ts
+flow.on('query', ({ prompt }, response) => {
+  response.add({
+    title: 'Click me to search!',
+    subtitle: `You're searching for "${prompt}"`,
+  });
+});
+```
+
+- These methods can be used asynchronously.
+- You can use destructuring to get the parameters from the request, and the prompt.
+
+## Actions
+
+You can add actions to your items, which are commands that will be executed when the item is clicked. Specify the action using the `jsonRPCAction` property, along with the parameters that the action requires.
+
+Using the `Flow.Launcher.*` interface, you can use standard actions that are recognized by the launcher.
 
 ```ts
 flow.add({
@@ -82,15 +117,14 @@ flow.add({
 });
 ```
 
-That way you will know exactly what parameters your plugin should send.
+If you want to make sure that your plugin is working properly, you can use the `Flow.Launcher.*` interface with `satisfies` to check if your plugin is sending the correct actions.
 
 Read more about what actions are available and their parameters in the [type definition](https://github.com/DrafaKiller/FlowPlugin-ts/blob/v1.0.0/src/api/types/standard.ts#L50-L177).
 
-## Custom Actions
 
-Actions can be used to perform custom actions when clicking on an item, and support asynchronous operations.
+### Custom Actions
 
-When adding an item, you can specify an action to be executed when the item is clicked, using the `jsonRPCAction` property.
+Actions not recognized by the launcher will be sent back to the plugin as requests.
 
 ```ts
 flow.add({
@@ -102,7 +136,7 @@ flow.add({
 });
 ```
 
-When clicking on an item, you can then listen for the action in the `on` method and reply using a standard action.
+When clicking on an item, you can then listen for the action with the `on` method and reply using a standard action.
 
 ```ts
 flow.on('my_custom_action', ({ parameters: [ my_value ] }, response) => {
@@ -115,7 +149,7 @@ flow.on('my_custom_action', ({ parameters: [ my_value ] }, response) => {
 });
 ```
 
-You can only reply <u>once</u>, to actions that are <u>recognized by the launcher</u>, otherwise the launcher will display an error message.
+You can only reply <u>once</u> with actions that are <u>recognized by the launcher</u>, otherwise the launcher will display an error message.
 
 ## Definitions & Protocol
 

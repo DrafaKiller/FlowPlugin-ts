@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 1.0.2
+
+Changed:
+- Improved documentation, to be more complete and consistent
+
 ## 1.0.1
 
 Changed:
