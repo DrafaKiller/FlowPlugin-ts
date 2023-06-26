@@ -1,7 +1,7 @@
 {
 	"name": "flow-plugin",
 	"description": "A package to help you create plugins for Flow Launcher with Typescript",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"author": "DrafaKiller",
 	"keywords": [ "Flow Launcher" ],
 	"license": "MIT",

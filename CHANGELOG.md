@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 1.2.0
+
+Added:
+- `Flow.Actions.*` methods to make it easier to create actions
+
 ## 1.1.0
 
 Changed:

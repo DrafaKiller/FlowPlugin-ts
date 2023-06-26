@@ -43,11 +43,7 @@ const flow = new Flow({ keepOrder: true, icon: 'app.png' });
 flow.add({
   title: 'Welcome to Flow Launcher!',
   subtitle: 'Create your own plugin with Typescript!',
-  jsonRPCAction: {
-    method: 'Flow.Launcher.ChangeQuery',
-    parameters: ['- Hello World!', false],
-    dontHideAfterAction: true,
-  },
+  jsonRPCAction: Flow.Actions.changeQuery('- Hello World!', { dontHideAfterAction: true }),
 });
 
 flow.on('query', ({ prompt }, response) => {
@@ -105,15 +101,12 @@ flow.on('query', ({ prompt }, response) => {
 
 You can add actions to your items, which are commands that will be executed when the item is clicked. Specify the action using the `jsonRPCAction` property, along with the parameters that the action requires.
 
-Using the `Flow.Launcher.*` interface, you can use standard actions that are recognized by the launcher.
+Using the `Flow.Actions.*` methods, you can use standard actions that are recognized by the launcher.
 
 ```ts
 flow.add({
   title: 'Copy to clipboard',
-  jsonRPCAction: {
-    method: 'Flow.Launcher.CopyToClipboard',
-    parameters: ['Hello World!'],
-  } satisfies Flow.Launcher.CopyToClipboard,
+  jsonRPCAction: Flow.Actions.copyToClipboard('Hello World!'),
 });
 ```
 
@@ -129,10 +122,7 @@ Actions not recognized by the launcher will be sent back to the plugin as reques
 ```ts
 flow.add({
   title: 'Copy to clipboard',
-  jsonRPCAction: {
-    method: 'my_custom_action',
-    parameters: ['Hello World!'],
-  },
+  jsonRPCAction: Flow.Actions.custom('my_custom_action', ['Hello World!']),
 });
 ```
 
@@ -141,11 +131,7 @@ When clicking on an item, you can then listen for the action with the `on` metho
 ```ts
 flow.on('my_custom_action', ({ parameters: [ my_value ] }, response) => {
   if (typeof my_value !== 'string') return;
-
-  response.reply({
-    method: 'Flow.Launcher.CopyToClipboard',
-    parameters: [my_value],
-  });
+  response.reply(Flow.Actions.copyToClipboard(my_value));
 });
 ```
 

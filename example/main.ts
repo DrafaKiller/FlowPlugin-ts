@@ -11,11 +11,7 @@ flow.on('query', ({ prompt }, response) => {
   response.add({
     title: 'Click me to search!',
     subtitle: `You're searching for "${prompt}"`,
-    jsonRPCAction: {
-      method: 'my_custom_action',
-      parameters: [prompt],
-      dontHideAfterAction: true,
-    },
+    jsonRPCAction: Flow.Actions.custom('my_custom_action', [prompt], { dontHideAfterAction: true }),
   });
 
   response.add({
@@ -26,9 +22,5 @@ flow.on('query', ({ prompt }, response) => {
 
 flow.on('my_custom_action', ({ parameters: [prompt] }, response) => {
   if (typeof prompt !== 'string') return;
-
-  response.reply({
-    method: 'Flow.Launcher.ChangeQuery',
-    parameters: [`Searching for "${prompt}"`, false],
-  });
+  response.reply(Flow.Actions.changeQuery(`Searching for "${prompt}"`));
 });

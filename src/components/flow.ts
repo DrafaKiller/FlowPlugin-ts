@@ -90,6 +90,7 @@ export class Flow {
 
 import * as api from '../api';
 import * as standard from '../api/types/standard';
+import * as actions from './action';
 
 export namespace Flow {
   export const Builder = FlowBuilder;
@@ -99,6 +100,8 @@ export namespace Flow {
   export type Response = api.Response;
   export type Result = api.Result;
   export type Action = api.Action;
+
+  export const Actions = actions;
 
   export namespace Launcher {
     export type Requests = standard.Requests;
