@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 1.3.0
+
+Changed:
+- Made `Flow.Actions.changeQuery` property `dontHideAfterAction` set to `true` by default
+
 ## 1.2.0
 
 Added:

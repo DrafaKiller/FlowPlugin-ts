@@ -17,7 +17,9 @@ export function changeQuery(
   query: string,
   options: { requery?: boolean; dontHideAfterAction?: boolean } = {}
 ): standard.ChangeQuery {
-  return action('Flow.Launcher.ChangeQuery', [query, options.requery ?? false], options);
+  return action('Flow.Launcher.ChangeQuery', [query, options.requery ?? false], {
+    dontHideAfterAction: options.dontHideAfterAction ?? true,
+  });
 }
 
 export function restartApp(): standard.RestartApp {
