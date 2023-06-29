@@ -1,6 +1,5 @@
-import { Request, Action } from '../api';
+import { Request } from '../api';
 import { Query } from '../api/types/standard';
-import { FlowResponseError } from '../error';
 import { FlowBuilder } from './builder';
 
 export class FlowMethodHandler<T extends string = string> {
@@ -38,17 +37,12 @@ export class FlowMethodHandler<T extends string = string> {
   }
 
   private async executeAction(request: Request) {
-    function reply(action: Action) {
-      if (replied !== undefined) throw new FlowResponseError();
-      replied = action;
-    }
-
     const callback = this.callback as FlowMethodHandler.Action;
-    var replied: Action | undefined;
+    const response = new FlowActionResponse();
 
-    const result = await callback(request, { reply: reply });
-    if (result) reply(result);
-    return replied;
+    const result = await callback(request, response);
+    if (result) response.reply(result);
+    return response.action;
   }
 }
 
@@ -56,25 +50,14 @@ export class FlowMethodHandler<T extends string = string> {
 
 import { PromiseOr } from '../utils/types';
 import { Actions } from '../api/types/standard';
-import { AvailableResponse, AvailableResult } from '../api/types/extended';
-
-export type RequestQuery = Query & { prompt: string };
+import { AvailableResponse } from '../api/types/extended';
+import { FlowQuery } from './query';
+import { FlowActionResponse, FlowResponse } from './response';
 
 export namespace FlowMethodHandler {
   export type All<T extends string = any> = T extends 'query' ? Response : Action;
 
-  export type Response = (
-    request: RequestQuery,
-    response: {
-      send: (...responses: AvailableResponse[]) => void;
-      add: (...result: AvailableResult[]) => void;
-    }
-  ) => PromiseOr<void | AvailableResponse>;
+  export type Response = (request: FlowQuery, response: FlowResponse) => PromiseOr<void | AvailableResponse>;
 
-  export type Action = (
-    request: Request,
-    response: {
-      reply: (action: Actions) => void;
-    }
-  ) => PromiseOr<void | Actions>;
+  export type Action = (request: Request, response: FlowActionResponse) => PromiseOr<void | Actions>;
 }

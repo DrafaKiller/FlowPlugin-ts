@@ -22,7 +22,7 @@ npm install flow-plugin
 ## Features
 
 - Easy to use
-- Type-safe API with type definitions
+- Type-safe API, using accurate type definitions
 - Append items to the final result
 - Reply to item clicks with custom actions
 - Asynchronous support
@@ -31,9 +31,9 @@ npm install flow-plugin
 
 Here's a simple example of how to use this package, and just like that you can create your own plugin for Flow Launcher.
 
-Add Flow Launcher's results by using the `add` method, and listen for queries with the `on` method.
+Add Flow Launcher's items by using the `add` method, and listen for requests with the `on` method.
 
-It provides an easy-to-use API to create your plugin, and it also provides a type definition file to help you develop your plugin.
+It provides an easy-to-use API to create your plugin, and accurate type definition to help you develop your plugin.
 
 ```ts
 import { Flow } from 'flow-plugin';
@@ -64,7 +64,7 @@ This is the result of the example above:
 
 ## Type-safe API
 
-This package provides a type definition file to help you develop your plugin.
+This package provides an accurate type definition to help you develop your plugin.
 That way you will know exactly what parameters your plugin should send.
 
 ```ts
@@ -131,7 +131,7 @@ When clicking on an item, you can then listen for the action with the `on` metho
 ```ts
 flow.on('my_custom_action', ({ parameters: [ my_value ] }, response) => {
   if (typeof my_value !== 'string') return;
-  response.reply(Flow.Actions.copyToClipboard(my_value));
+  response.copyToClipboard(my_value);
 });
 ```
 

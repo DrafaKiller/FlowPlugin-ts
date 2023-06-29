@@ -1,5 +1,14 @@
 # ChangeLog
 
+## 1.4.0
+
+Added:
+- Exported `FlowQuery` type
+- Functions for responding to actions (e.g. `response.changeQuery(...)`, `response.copyToClipboard(...)`, etc...)
+
+Changed:
+- Renamed `RequestQuery` to `FlowQuery`, so it's more consistent with the rest of the API by using the `Flow` prefix
+
 ## 1.3.0
 
 Changed:
