@@ -23,7 +23,7 @@ npm install flow-plugin
 
 - Easy to use
 - Type-safe API, using accurate type definitions
-- Append items to the final result
+- Progressively add items to the result
 - Reply to item clicks with custom actions
 - Asynchronous support
 
